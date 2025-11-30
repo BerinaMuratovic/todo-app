@@ -10,4 +10,31 @@
       gap: 12px;
     }
   }
+  .completed {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  .actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 6px;
+  }
   

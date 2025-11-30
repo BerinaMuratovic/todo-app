@@ -1,14 +1,42 @@
-<div class="todo-item">
-    <div class="left">
-      <input type="checkbox" />
-      <span>Read a book</span>
-    </div>
+<div *ngFor="let todo of todos$ | async" class="todo-item">
+  <div class="left">
+
+    <input
+      type="checkbox"
+      [checked]="todo.completed"
+      (change)="toggleTodo(todo.id)"
+    />
+
+    <!-- NORMAL VIEW -->
+    <span *ngIf="editingId !== todo.id"
+          [class.completed]="todo.completed">
+      {{ todo.text }}
+    </span>
+
+    <!-- EDIT MODE -->
+    <input
+      *ngIf="editingId === todo.id"
+      [(ngModel)]="editedText"
+    />
+
   </div>
-  
-  <div class="todo-item">
-    <div class="left">
-      <input type="checkbox" />
-      <span>Wireframing new product</span>
-    </div>
+
+  <div class="actions">
+    <button *ngIf="editingId !== todo.id"
+            (click)="startEdit(todo)">
+      ✏️
+    </button>
+
+    <button *ngIf="editingId === todo.id"
+            (click)="saveEdit(todo)">
+      ✅
+    </button>
+
+    <button *ngIf="editingId === todo.id"
+            (click)="cancelEdit()">
+      ❌
+    </button>
+
+    <button (click)="removeTodo(todo.id)">🗑️</button>
   </div>
-  
+</div>
