@@ -13,7 +13,7 @@ import { TodoService } from '../../services/todo.service';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule       // ✅ REQUIRED FOR *ngIf
+    CommonModule       
   ],
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.scss']
