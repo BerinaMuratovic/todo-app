@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 
@@ -14,23 +15,40 @@ import { TodoService } from '../../services/todo.service';
 })
 export class TodoListComponent {
 
-  
   todos$: Observable<Todo[]>;
 
   editingId: number | null = null;
-  editedText: string = '';
+  editedText = '';
+
+
+  showDeleteModal = false;
+  todoToDelete: Todo | null = null;
 
   constructor(private todoService: TodoService) {
-  
-    this.todos$ = this.todoService.getTodos();
+    this.todos$ = this.todoService.getActiveTodos();
   }
 
   toggleTodo(id: number): void {
     this.todoService.toggleTodo(id);
   }
 
-  removeTodo(id: number): void {
-    this.todoService.removeTodo(id);
+  openDeleteModal(todo: Todo): void {
+    this.todoToDelete = todo;
+    this.showDeleteModal = true;
+  }
+
+
+  confirmDelete(): void {
+    if (this.todoToDelete) {
+      this.todoService.removeTodo(this.todoToDelete.id);
+    }
+    this.closeDeleteModal();
+  }
+
+
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+    this.todoToDelete = null;
   }
 
   startEdit(todo: Todo): void {

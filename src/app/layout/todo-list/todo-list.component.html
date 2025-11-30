@@ -4,19 +4,16 @@
   [class.completed]="todo.completed"
 >
   <div class="left">
-
     <input
       type="checkbox"
       [checked]="todo.completed"
       (change)="toggleTodo(todo.id)"
     />
 
-    <!-- NORMAL VIEW -->
     <span *ngIf="editingId !== todo.id">
       {{ todo.text }}
     </span>
 
-    <!-- EDIT MODE -->
     <input
       *ngIf="editingId === todo.id"
       [(ngModel)]="editedText"
@@ -39,8 +36,33 @@
       ❌
     </button>
 
-    <button (click)="removeTodo(todo.id)">
+
+    <button (click)="openDeleteModal(todo)">
       🗑️
     </button>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" *ngIf="showDeleteModal">
+  <div class="modal danger">
+
+    <h3>Delete todo</h3>
+
+    <p>
+      Are you sure you want to delete:
+      <strong>"{{ todoToDelete?.text }}"</strong>?
+    </p>
+
+    <div class="buttons">
+      <button class="cancel" (click)="closeDeleteModal()">
+        Cancel
+      </button>
+
+      <button class="delete" (click)="confirmDelete()">
+        Delete
+      </button>
+    </div>
+
   </div>
 </div>
