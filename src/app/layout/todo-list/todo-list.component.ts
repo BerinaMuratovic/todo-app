@@ -14,12 +14,14 @@ import { TodoService } from '../../services/todo.service';
 })
 export class TodoListComponent {
 
+  
   todos$: Observable<Todo[]>;
 
   editingId: number | null = null;
   editedText: string = '';
 
   constructor(private todoService: TodoService) {
+  
     this.todos$ = this.todoService.getTodos();
   }
 

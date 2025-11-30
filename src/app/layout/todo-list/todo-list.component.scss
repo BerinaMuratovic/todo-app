@@ -37,4 +37,28 @@
     cursor: pointer;
     margin-left: 6px;
   }
+  .todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .todo-item .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .todo-item.completed span {
+    text-decoration: line-through;
+    color: #999;
+  }
+  
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
   

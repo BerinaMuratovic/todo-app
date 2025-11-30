@@ -1,4 +1,8 @@
-<div *ngFor="let todo of todos$ | async" class="todo-item">
+<div
+  *ngFor="let todo of todos$ | async"
+  class="todo-item"
+  [class.completed]="todo.completed"
+>
   <div class="left">
 
     <input
@@ -8,8 +12,7 @@
     />
 
     <!-- NORMAL VIEW -->
-    <span *ngIf="editingId !== todo.id"
-          [class.completed]="todo.completed">
+    <span *ngIf="editingId !== todo.id">
       {{ todo.text }}
     </span>
 
@@ -18,7 +21,6 @@
       *ngIf="editingId === todo.id"
       [(ngModel)]="editedText"
     />
-
   </div>
 
   <div class="actions">
@@ -37,6 +39,8 @@
       ❌
     </button>
 
-    <button (click)="removeTodo(todo.id)">🗑️</button>
+    <button (click)="removeTodo(todo.id)">
+      🗑️
+    </button>
   </div>
 </div>

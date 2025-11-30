@@ -7,10 +7,10 @@ import { Todo } from '../models/todo.model';
 })
 export class TodoService {
 
-  // BehaviorSubject stores the current state of todos
+  
   private todosSubject = new BehaviorSubject<Todo[]>([]);
 
-  // Observable exposed to components
+  
   todos$: Observable<Todo[]> = this.todosSubject.asObservable();
 
   private nextId = 1;
