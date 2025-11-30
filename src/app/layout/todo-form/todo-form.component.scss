@@ -19,4 +19,23 @@
       cursor: pointer;
     }
   }
+  .todo-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  
+    input {
+      flex: 1;
+      padding: 10px;
+    }
+  
+    button {
+      padding: 10px 20px;
+    }
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
   

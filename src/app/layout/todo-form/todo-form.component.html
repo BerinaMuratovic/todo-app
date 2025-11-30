@@ -1,8 +1,33 @@
-<div class="todo-form">
+<form
+  [formGroup]="todoForm"
+  (ngSubmit)="submit()"
+  class="todo-form"
+  novalidate
+>
   <input
     type="text"
     placeholder="Add a new task..."
-    [(ngModel)]="todoText"
+    formControlName="text"
   />
-  <button (click)="addTodo()">Add</button>
-</div>
+
+  <button type="submit">
+    Add
+  </button>
+
+  <!-- ✅ THIS WAS NOT RENDERING BEFORE -->
+  <div
+    class="error"
+    *ngIf="
+      todoForm.get('text')?.invalid &&
+      (todoForm.get('text')?.touched || submitted)
+    "
+  >
+    <p *ngIf="todoForm.get('text')?.errors?.['required']">
+      Task is required
+    </p>
+
+    <p *ngIf="todoForm.get('text')?.errors?.['minlength']">
+      Task must be at least 3 characters
+    </p>
+  </div>
+</form>
