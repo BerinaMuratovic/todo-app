@@ -1,0 +1,68 @@
+<div
+  *ngFor="let todo of todos$ | async"
+  class="todo-item"
+  [class.completed]="todo.completed"
+>
+  <div class="left">
+    <input
+      type="checkbox"
+      [checked]="todo.completed"
+      (change)="toggleTodo(todo.id)"
+    />
+
+    <span *ngIf="editingId !== todo.id">
+      {{ todo.text }}
+    </span>
+
+    <input
+      *ngIf="editingId === todo.id"
+      [(ngModel)]="editedText"
+    />
+  </div>
+
+  <div class="actions">
+    <button *ngIf="editingId !== todo.id"
+            (click)="startEdit(todo)">
+      ✏️
+    </button>
+
+    <button *ngIf="editingId === todo.id"
+            (click)="saveEdit(todo)">
+      ✅
+    </button>
+
+    <button *ngIf="editingId === todo.id"
+            (click)="cancelEdit()">
+      ❌
+    </button>
+
+
+    <button (click)="openDeleteModal(todo)">
+      🗑️
+    </button>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" *ngIf="showDeleteModal">
+  <div class="modal danger">
+
+    <h3>Delete todo</h3>
+
+    <p>
+      Are you sure you want to delete:
+      <strong>"{{ todoToDelete?.text }}"</strong>?
+    </p>
+
+    <div class="buttons">
+      <button class="cancel" (click)="closeDeleteModal()">
+        Cancel
+      </button>
+
+      <button class="delete" (click)="confirmDelete()">
+        Delete
+      </button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="dashboard">
+
+
+  <app-sidebar></app-sidebar>
+
+  
+  <main class="content">
+
+    <div class="content-header">
+      <div>
+        <h1>Good Morning! 👋</h1>
+        <p>{{ today }}</p>
+      </div>
+
+      <select class="today-dropdown">
+        <option>Today</option>
+        <option>This Week</option>
+        <option>This Month</option>
+      </select>
+    </div>
+
+    <div class="app-wrapper">
+      <div class="app-content">
+        <app-todo-form></app-todo-form>
+        <app-todo-list></app-todo-list>
+      </div>
+    </div>
+
+  </main>
+</div>

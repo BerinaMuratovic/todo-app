@@ -1,0 +1,39 @@
+<aside class="sidebar">
+  <h2 class="logo">Lists</h2>
+
+  <ul class="menu">
+    <li
+      *ngFor="let list of lists$ | async"
+      (click)="selectList(list.id)"
+      [class.active]="list.id === activeListId"
+    >
+      {{ list.name }}
+    </li>
+  </ul>
+
+  <button class="new-list-btn" (click)="openCreateListModal()">
+    + Create new list
+  </button>
+</aside>
+
+<div class="modal-backdrop" *ngIf="showCreateListModal">
+  <div class="modal">
+    <h3>Create new list</h3>
+
+    <input
+      type="text"
+      placeholder="List name"
+      [(ngModel)]="newListName"
+    />
+
+    <div class="buttons">
+      <button class="cancel" (click)="closeCreateListModal()">
+        Cancel
+      </button>
+
+      <button class="create" (click)="createList()">
+        Create
+      </button>
+    </div>
+  </div>
+</div>
