@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -13,18 +13,22 @@ import { TodoService } from '../../services/todo.service';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
 
-  todos$: Observable<Todo[]>;
+  todos$!: Observable<Todo[]>;
 
   editingId: number | null = null;
   editedText = '';
 
-
   showDeleteModal = false;
   todoToDelete: Todo | null = null;
 
-  constructor(private todoService: TodoService) {
+  private todoService!: TodoService;
+
+  constructor(private injector: Injector) {}
+
+  ngOnInit(): void {
+    this.todoService = this.injector.get(TodoService);
     this.todos$ = this.todoService.getActiveTodos();
   }
 
@@ -37,14 +41,12 @@ export class TodoListComponent {
     this.showDeleteModal = true;
   }
 
-
   confirmDelete(): void {
     if (this.todoToDelete) {
       this.todoService.removeTodo(this.todoToDelete.id);
     }
     this.closeDeleteModal();
   }
-
 
   closeDeleteModal(): void {
     this.showDeleteModal = false;

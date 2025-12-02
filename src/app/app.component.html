@@ -1,29 +1,11 @@
 <div class="dashboard">
 
 
-  <aside class="sidebar">
-    <h2 class="logo">Lists</h2>
-
-    <ul class="menu">
-      <li
-        *ngFor="let list of lists$ | async"
-        (click)="selectList(list.id)"
-        [class.active]="list.id === activeListId"
-      >
-        {{ list.name }}
-      </li>
-    </ul>
-
-   
-    <button class="new-list-btn" (click)="openCreateListModal()">
-      + Create new list
-    </button>
-  </aside>
+  <app-sidebar></app-sidebar>
 
   
   <main class="content">
 
-   
     <div class="content-header">
       <div>
         <h1>Good Morning! 👋</h1>
@@ -37,7 +19,6 @@
       </select>
     </div>
 
-   
     <div class="app-wrapper">
       <div class="app-content">
         <app-todo-form></app-todo-form>
@@ -46,29 +27,4 @@
     </div>
 
   </main>
-</div>
-
-
-<div class="modal-backdrop" *ngIf="showCreateListModal">
-  <div class="modal">
-
-    <h3>Create new list</h3>
-
-    <input
-      type="text"
-      placeholder="List name"
-      [(ngModel)]="newListName"
-    />
-
-    <div class="buttons">
-      <button class="cancel" (click)="closeCreateListModal()">
-        Cancel
-      </button>
-
-      <button class="create" (click)="createList()">
-        Create
-      </button>
-    </div>
-
-  </div>
 </div>

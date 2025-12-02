@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -13,12 +13,14 @@ import { TodoService } from '../../services/todo.service';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule       
+    CommonModule
   ],
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.scss']
 })
-export class TodoFormComponent {
+export class TodoFormComponent implements OnInit {
+
+  private todoService!: TodoService;
 
   submitted = false;
 
@@ -29,7 +31,13 @@ export class TodoFormComponent {
     ])
   });
 
-  constructor(private todoService: TodoService) {}
+ 
+  constructor(private injector: Injector) {}
+
+ 
+  ngOnInit(): void {
+    this.todoService = this.injector.get(TodoService);
+  }
 
   submit(): void {
     this.submitted = true;
