@@ -3,9 +3,28 @@
 
   <ul class="menu">
     <li
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Personal
+    </li>
+
+    <li
+      routerLink="/work"
+      routerLinkActive="active"
+    >
+      Work
+    </li>
+  </ul>
+
+  <h4 class="section-title">My Lists</h4>
+
+  <ul class="menu">
+    <li
       *ngFor="let list of lists$ | async"
-      (click)="selectList(list.id)"
-      [class.active]="list.id === activeListId"
+      [routerLink]="['/list', list.id]"
+      routerLinkActive="active"
     >
       {{ list.name }}
     </li>

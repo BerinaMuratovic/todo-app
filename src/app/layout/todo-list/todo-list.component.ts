@@ -2,6 +2,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
@@ -24,16 +25,35 @@ export class TodoListComponent implements OnInit {
   todoToDelete: Todo | null = null;
 
   private todoService!: TodoService;
+  private listId = 1;    
 
-  constructor(private injector: Injector) {}
+  constructor(
+    private injector: Injector,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.todoService = this.injector.get(TodoService);
-    this.todos$ = this.todoService.getActiveTodos();
+
+    const snapshot = this.route.snapshot;
+    const paramId = snapshot.paramMap.get('id');
+
+    if (paramId) {
+      this.listId = Number(paramId);                
+    } else {
+      this.listId = (snapshot.data['listId'] as number) ?? 1; 
+    }
+
+    this.todos$ = this.todoService.getTodosForList(this.listId);
   }
 
   toggleTodo(id: number): void {
     this.todoService.toggleTodo(id);
+  }
+
+  openDetails(todo: Todo): void {
+    this.router.navigate(['/todo', todo.id]);
   }
 
   openDeleteModal(todo: Todo): void {

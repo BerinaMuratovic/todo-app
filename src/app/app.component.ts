@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { HeaderComponent } from './layout/header/header.component';
-import { TodoFormComponent } from './layout/todo-form/todo-form.component';
-import { TodoListComponent } from './layout/todo-list/todo-list.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { TodoFormComponent } from './layout/todo-form/todo-form.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    HeaderComponent,
+    RouterModule,        
     SidebarComponent,
-    TodoFormComponent,
-    TodoListComponent
+    TodoFormComponent    
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

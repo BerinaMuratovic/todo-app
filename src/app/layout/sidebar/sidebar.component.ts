@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { TodoService } from '../../services/todo.service';
 import { TodoList } from '../../models/todo-list.model';
@@ -10,27 +12,25 @@ import { TodoList } from '../../models/todo-list.model';
   selector: 'app-sidebar',
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule
+    CommonModule,     
+    FormsModule,      
+    RouterModule      
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
 
+  
   lists$: Observable<TodoList[]>;
-  activeListId = 1;
 
   showCreateListModal = false;
   newListName = '';
 
   constructor(private todoService: TodoService) {
-    this.lists$ = this.todoService.getLists();
-  }
-
-  selectList(id: number): void {
-    this.activeListId = id;
-    this.todoService.setActiveList(id);
+    this.lists$ = this.todoService.getLists().pipe(
+      map(lists => lists.filter(list => list.id > 2))
+    );
   }
 
   openCreateListModal(): void {
@@ -43,9 +43,10 @@ export class SidebarComponent {
   }
 
   createList(): void {
-    if (this.newListName.trim()) {
-      this.todoService.addList(this.newListName.trim());
-      this.closeCreateListModal();
-    }
+    const name = this.newListName.trim();
+    if (!name) return;
+
+    this.todoService.addList(name);
+    this.closeCreateListModal();
   }
 }
