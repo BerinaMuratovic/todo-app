@@ -2,5 +2,5 @@ export interface Todo {
   id: number;
   text: string;
   completed: boolean;
-  category: 'personal' | 'work'; 
+  category: 'personal' | 'work';
 }

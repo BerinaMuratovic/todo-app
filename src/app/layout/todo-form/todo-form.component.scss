@@ -2,6 +2,7 @@
     display: flex;
     gap: 12px;
     margin-bottom: 20px;
+    align-items: flex-start;
   
     input {
       flex: 1;
@@ -50,7 +51,12 @@
     flex-direction: column;  
   }
   .input-group input {
-    width: 100%;          
+    width: 100%;
+    box-sizing: border-box;          
+  }
+  .todo-form button {
+    height: 40px;
+    white-space: nowrap;
   }
   
   .error {
